@@ -54,6 +54,7 @@ int main(int argc, char *argv[])
       printf("2. Parent process : addr=%s", addr);
       addr[1] = 'y';
       printf("3. Parent process : addr=%s", addr);
+      wait(NULL);
       break;
   }
 }
