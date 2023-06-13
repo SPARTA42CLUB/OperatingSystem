@@ -37,7 +37,7 @@ int	main(void)
 	// 공유 메모리에서 데이터 읽기
 	printf("Data read from shared memory: %s\n", shm_addr);
 	// 공유 메모리에서 연결 해제
-	if (shmdt(shm_addr) == -1)
+	if (shmdt(shm_addr) == -1) // shmdt() 함수를 사용하여 공유 메모리와의 연결을 해제
 	{
 		perror("shmdt error");
 		exit(1);
