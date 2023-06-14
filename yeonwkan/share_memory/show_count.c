@@ -10,6 +10,7 @@ int main( void)
 {
    int   shm_id;
    void *shm_addr;
+	int flag;
 
    if ( -1 == ( shm_id = shmget( (key_t)KEY_NUM, MEM_SIZE, IPC_CREAT|0666)))
    {
@@ -23,10 +24,12 @@ int main( void)
       return -1;
    }
 
-   while( 1 )
-   {
       printf( "%s\n", (char *)shm_addr);    // 공유 메모리를 화면에 출력
-      sleep( 1);
-   }
+	  printf("%p\n", shm_addr);
+	flag = shmdt(shm_addr);
+	if (!flag)
+		printf("shmdt success\n");
+	else
+		printf("shmdt fail\n");
    return 0;
 }

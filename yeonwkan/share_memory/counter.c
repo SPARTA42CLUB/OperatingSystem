@@ -27,6 +27,7 @@ int main(void) {
    while( 1 )
    {
       sprintf( (char *)shm_addr, "%d", count++);       // 공유 메모리에 카운터 출력
+	  printf("%p\n", shm_addr);
       sleep( 1);
    }
 
