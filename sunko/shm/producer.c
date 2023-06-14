@@ -26,7 +26,7 @@ int main(void)
   fd = shm_open(name, O_CREAT | O_RDWR, 0666);
 
   /* configure the size of the shared memory object */
-  truncate(fd, SIZE);
+  ftruncate(fd, SIZE);
 
   /* memory map the shared memory object */
   ptr = (char *)mmap(0, SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
