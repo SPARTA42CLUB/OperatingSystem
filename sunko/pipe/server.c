@@ -28,5 +28,5 @@ int main(void)
 		perror("write");
 		exit(1);
 	}
-	close(1);
+	close(pd);
 }
