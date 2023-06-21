@@ -5,7 +5,7 @@
 
 void	*runner(void *param)
 {
-	// do some work
+	printf("hello\n");
 	(void) param;
 
 	pthread_exit(0);
