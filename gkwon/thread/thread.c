@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdlib.h>
 #include <pthread.h>
 
 typedef struct {
@@ -11,8 +12,8 @@ void* print_range(void* arg);
 
 int main() {
     pthread_t thread1, thread2;
-    Range range1 = {1, 5};
-    Range range2 = {1, 5};
+    Range range1 = {1, 1000000000};
+    Range range2 = {1000000000, 2000000000};
     int  iret1, iret2;
 
     /* Create independent threads each of which will execute function */
@@ -44,6 +45,7 @@ void* print_range(void* arg) {
     Range* range = (Range*) arg;
     for(int i = range->start; i <= range->end; i++) {
         printf("%d\n", i);
+        system("sleep 1");
     }
     return NULL;
 }
