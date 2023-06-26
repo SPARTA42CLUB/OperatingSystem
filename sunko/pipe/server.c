@@ -1,3 +1,4 @@
+// server.c
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
@@ -5,28 +6,37 @@
 #include <stdio.h>
 #include <string.h>
 
+#define FIFO_PATH "./SUNKO-FIFO"
+#define MESSAGE "Hello, FIFO"
+
 int main(void)
 {
-	int pd, n;
-	char msg[] = "Hello, FIFO";
+    int pd, n;
 
-	printf("Server =====\n");
-	if (mkfifo("./SUNKO-FIFO", 0666) == -1)
-	{
-		perror("mkfifo");
-		exit(1);
-	}
-	if ((pd = open("./SUNKO-FIFO", O_WRONLY)) == -1)
-	{
-		perror("open");
-		exit(1);
-	}
-	printf("To Client: %s\n", msg);
-	n = write(pd, msg, strlen(msg) + 1);
-	if (n == -1)
-	{
-		perror("write");
-		exit(1);
-	}
-	close(pd);
+    printf("Server =====\n");
+
+    if (mkfifo(FIFO_PATH, 0666) == -1)
+    {
+        perror("mkfifo");
+        exit(1);
+    }
+
+    if ((pd = open(FIFO_PATH, O_WRONLY)) == -1)
+    {
+        perror("open");
+        exit(1);
+    }
+
+    printf("To Client: %s\n", MESSAGE);
+    n = write(pd, MESSAGE, strlen(MESSAGE) + 1);
+
+    if (n == -1)
+    {
+        perror("write");
+        exit(1);
+    }
+
+    close(pd);
+
+    return 0;
 }
