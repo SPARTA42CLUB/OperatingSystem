@@ -1,9 +1,9 @@
-// 안됨
-
 #include <fcntl.h>
 #include <semaphore.h>
 #include <pthread.h>
 #include <stdio.h>
+
+#define N 5
 
 void *count(void *arg);
 
@@ -12,7 +12,7 @@ int		cnt;
 
 int main(void)
 {
-	pthread_t	thread1,thread2;
+	pthread_t	thread[N];
 
 	// Create or open a named semaphore
 	namedSemaphore = sem_open("/my_named_semaphore", O_CREAT, 0644, 1);
@@ -22,11 +22,15 @@ int main(void)
 		return 1;
 	}
 
-	pthread_create(&thread1, NULL, count, NULL);
-	pthread_create(&thread2, NULL, count, NULL);
+	for (int i = 0; i < N; i++)
+	{
+		pthread_create(&thread[i], NULL, count, NULL);
+	}
 
-	pthread_join(thread1, NULL);
-	pthread_join(thread2, NULL);
+	for (int i = 0; i < N; i++)
+	{
+		pthread_join(thread[i], NULL);
+	}
 
 	// Close and unlink the named semaphore
 	sem_close(namedSemaphore);

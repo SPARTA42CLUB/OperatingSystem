@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include <semaphore.h>
 
-#define BUFFER_SIZE 1
+#define BUFFER_SIZE 10
 
 // 공유 버퍼
 int buffer[BUFFER_SIZE];
@@ -22,7 +22,7 @@ void *consumer(void *param);
 
 int main()
 {
-	int			numOfProducers = 1;
+	int			numOfProducers = 5;
 	int			numOfConsumers = 1;
 	pthread_t	tid;
 
@@ -43,7 +43,8 @@ int main()
 	return 0;
 }
 
-void insert_item(int item){
+void insert_item(int item)
+{
 	sem_wait(&empty); // wait
 	pthread_mutex_lock(&mutex);
 
@@ -56,7 +57,8 @@ void insert_item(int item){
 	sem_post(&full); // signal
 }
 
-void remove_item(int *item){
+void remove_item(int *item)
+{
 	sem_wait(&full); // wait
 	pthread_mutex_lock(&mutex);
 
@@ -68,9 +70,11 @@ void remove_item(int *item){
 	sem_post(&empty); // signal
 }
 
-void *producer(void *param){
+void *producer(void *param)
+{
 	int item;
-	while (true){
+	while (true)
+	{
 		// 0.1초 ~ 0.5초 사이를 슬립하게 해줌
 		usleep((1+rand()%5)*100000);
 		// 1000 ~ 2000까지의 수를 랜덤하게 만들어줌
@@ -80,9 +84,11 @@ void *producer(void *param){
 	}
 }
 
-void *consumer(void *param){
+void *consumer(void *param)
+{
 	int item;
-	while (true){
+	while (true)
+	{
 		// 0.1초 ~ 0.5초 사이를 슬립하게 해줌
 		usleep((1+rand()%5)*100000);
 		// item을 하나 꺼내옴
