@@ -1,6 +1,10 @@
 {
 	"files.associations": {
 		"types.h": "c",
-		"sstream": "c"
+		"sstream": "c",
+		"algorithm": "c",
+		"chrono": "c",
+		"limits": "c",
+		"ratio": "c"
 	}
 }
