@@ -33,12 +33,9 @@ int	main(void)
 	return (0);
 }
 
-void	*do_work_one(void *param)
+void	*do_work_one(void *param) // T1
 {
-	(void) param;
-
-	pthread_mutex_lock(&first_mutex);
-	sleep(1);
+	pthread_mutex_lock(&first_mutex); // T1
 	pthread_mutex_lock(&second_mutex);
 
 	for (int i = 0; i < N; i++)
@@ -51,12 +48,9 @@ void	*do_work_one(void *param)
 
 	pthread_exit(0);
 }
-void	*do_work_two(void *param)
+void	*do_work_two(void *param) // T2
 {
-	(void) param;
-
-	pthread_mutex_lock(&second_mutex);
-	sleep(1);
+	pthread_mutex_lock(&second_mutex); // T2
 	pthread_mutex_lock(&first_mutex);
 
 	for (int i = 0; i < N; i++)
